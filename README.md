@@ -18,7 +18,7 @@ cache.store('test.jpg', { name: 'test' });
 cache.get('test.jpg', 'test-restored.jpg' { name: 'test' });
 
 // clean all files inside the test folder inside cache
-cache.clean(src, { name: 'test' });
+cache.clean('test.jpg', { name: 'test' });
 ```
 
 ## API
