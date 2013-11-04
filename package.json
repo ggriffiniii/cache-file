@@ -1,0 +1,40 @@
+{
+  "name": "cache-file",
+  "version": "0.1.0",
+  "description": "Minify GIF, JPEG and PNG images",
+  "keywords": [
+    "compress",
+    "image",
+    "img",
+    "jpeg",
+    "jpg",
+    "minify",
+    "png"
+  ],
+  "homepage": "https://github.com/kevva/cache-file",
+  "bugs": "https://github.com/kevva/cache-file/issues",
+  "author": {
+    "name": "Kevin Martensson",
+    "email": "kevinmartensson@gmail.com",
+    "url": "http://kevinmartensson.com"
+  },
+  "license": "MIT",
+  "repository": "git://github.com/kevva/cache-file.git",
+  "scripts": {
+    "test": "mocha --reporter list"
+  },
+  "main": "cache.js",
+  "files": [
+    "cache.js"
+  ],
+  "dependencies": {
+    "mkdirp": "~0.3.5",
+    "rimraf": "~2.2.2"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}
