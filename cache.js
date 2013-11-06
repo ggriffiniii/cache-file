@@ -65,6 +65,20 @@ Cache.prototype.get = function (dest) {
 };
 
 /**
+ * Check if a file exists in cache
+ *
+ * @api public
+ */
+
+Cache.prototype.check = function () {
+    if (fs.existsSync(this.cache)) {
+        return true;
+    }
+
+    return false;
+};
+
+/**
  * Clean cache
  *
  * @api public
@@ -102,6 +116,11 @@ module.exports.store = function (src, opts) {
 module.exports.get = function (src, dest, opts) {
     var cache = new Cache(src, opts);
     return cache.get(dest);
+};
+
+module.exports.check = function (src, opts) {
+    var cache = new Cache(src, opts);
+    return cache.check();
 };
 
 module.exports.clean = function (src, opts) {
