@@ -29,5 +29,6 @@ describe('Cache.get()', function () {
 
         cache.get(src, dest, { name: 'test' });
         assert.ok(fs.statSync(dest));
+        cache.clean(src, { name: 'test' });
     });
 });
