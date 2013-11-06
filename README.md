@@ -15,7 +15,7 @@ var cache = require('cache-file');
 cache.store('test.jpg', { name: 'test' });
 
 // get test.jpg from cache and save it as test-restored.jpg
-cache.get('test.jpg', 'test-restored.jpg' { name: 'test' });
+cache.get('test.jpg', 'test-restored.jpg', { name: 'test' });
 
 // clean all files inside the test folder inside cache
 cache.clean('test.jpg', { name: 'test' });
