@@ -23,7 +23,7 @@ cache.clean('test.jpg', { name: 'test' });
 
 ## API
 
-### .store(src, opts)
+### .store(src, dest, opts)
 
 Store a file inside cache. Use the `name` option to specify a specific folder 
 inside cache.
@@ -32,6 +32,10 @@ inside cache.
 
 Get a cached file and save it to a desired location. Use the `name` option to 
 look in a specific folder.
+
+### .check(src, opts)
+
+Check if a cached file exists.
 
 ### .clean(src, opts)
 

@@ -13,6 +13,13 @@ describe('Cache.store()', function () {
         cache.store(src, { name: 'test' });
         assert.ok(cache.check(src, { name: 'test' }));
     });
+    it('should cache a file with a custom name', function () {
+        var src = path.join(__dirname, 'fixtures/test.jpg');
+        var dest = path.join(__dirname, 'fixtures/test.gif');
+
+        cache.store(src, dest, { name: 'test' });
+        assert.ok(cache.check(dest, { name: 'test' }));
+    });
 });
 
 describe('Cache.get()', function () {

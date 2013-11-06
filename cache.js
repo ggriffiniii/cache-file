@@ -3,6 +3,7 @@
 var crypto = require('crypto');
 var fs = require('fs');
 var mkdir = require('mkdirp');
+var mout = require('mout');
 var os = require('os');
 var path = require('path');
 var rm = require('rimraf');
@@ -30,10 +31,15 @@ function Cache(src, opts) {
 /**
  * Cache a file
  *
+ * @param {String} dest
  * @api public
  */
 
-Cache.prototype.store = function () {
+Cache.prototype.store = function (dest) {
+    if (dest) {
+        this.cache = this.opts.name ? path.join(tmp, this.opts.name, this._hashFile(dest)) : path.join(tmp, this._hashFile(dest));
+    }
+
     if (!fs.existsSync(this.cache)) {
         var content = fs.readFileSync(String(this.src), 'utf8');
 
@@ -108,9 +114,14 @@ Cache.prototype._hashFile = function (src) {
  * Module exports
  */
 
-module.exports.store = function (src, opts) {
+module.exports.store = function (src, dest, opts) {
+    if (!opts && mout.lang.isObject(dest)) {
+        opts = dest;
+        dest = undefined;
+    }
+
     var cache = new Cache(src, opts);
-    return cache.store();
+    return cache.store(dest);
 };
 
 module.exports.get = function (src, dest, opts) {
