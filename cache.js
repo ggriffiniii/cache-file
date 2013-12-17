@@ -3,7 +3,6 @@
 var crypto = require('crypto');
 var fs = require('fs');
 var mkdir = require('mkdirp');
-var mout = require('mout');
 var os = require('os');
 var path = require('path');
 var rm = require('rimraf');
@@ -115,7 +114,7 @@ Cache.prototype._hashFile = function (src) {
  */
 
 module.exports.store = function (src, dest, opts) {
-    if (!opts && mout.lang.isObject(dest)) {
+    if (!opts && dest && typeof dest === 'object') {
         opts = dest;
         dest = undefined;
     }
