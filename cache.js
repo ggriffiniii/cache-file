@@ -40,13 +40,11 @@ Cache.prototype.store = function (dest) {
     }
 
     if (!fs.existsSync(this.cache)) {
-        var content = fs.readFileSync(String(this.src), 'utf8');
-
         if (!fs.existsSync(path.dirname(this.cache))) {
             mkdir.sync(path.dirname(this.cache));
         }
 
-        fs.writeFileSync(this.cache, content);
+        fs.createReadStream(this.src).pipe(fs.createWriteStream(this.cache));
     }
 };
 
@@ -59,13 +57,11 @@ Cache.prototype.store = function (dest) {
 
 Cache.prototype.get = function (dest) {
     if (fs.existsSync(this.cache)) {
-        var content = fs.readFileSync(String(this.cache), 'utf8');
-
         if (!fs.existsSync(path.dirname(dest))) {
             mkdir.sync(path.dirname(dest));
         }
 
-        fs.writeFileSync(dest, content);
+        fs.createReadStream(this.cache).pipe(fs.createWriteStream(dest));
     }
 };
 
