@@ -44,7 +44,12 @@ Else it'll remove the file defined in `src`.
 
 ## Options
 
-* `name` — Name of the folder in cache
+### name
+
+Type: `String`  
+Default: `undefined`
+
+Name of the folder in cache
 
 ## License
 
