@@ -1,7 +1,7 @@
 {
   "name": "cache-file",
   "version": "0.1.2",
-  "description": "Minify GIF, JPEG and PNG images",
+  "description": "Store and get files from cache with Node.js",
   "keywords": [
     "compress",
     "image",
