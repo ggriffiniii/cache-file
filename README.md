@@ -12,44 +12,42 @@ Install with [npm](https://npmjs.org/package/cache-file): `npm install cache-fil
 var cache = require('cache-file');
 
 // store test.jpg inside a test folder in cache
-cache.store('test.jpg', { name: 'test' });
+cache.store('test.jpg');
 
 // get test.jpg from cache and save it as test-restored.jpg
-cache.get('test.jpg', 'test-restored.jpg', { name: 'test' });
+cache.get('test.jpg', 'test-restored.jpg');
 
-// clean all files inside the test folder inside cache
-cache.clean('test.jpg', { name: 'test' });
+// check if test.jpg exists in cache
+cache.check('test.jpg');
+
+// get the path to test.jpg in cache
+cache.path('test.jpg');
+
+// remove test.jpg from cache
+cache.clean('test.jpg');
 ```
 
 ## API
 
-### .store(src, dest, opts)
+### .store(src, dest)
 
-Store a file inside cache. Use the `name` option to specify a specific folder 
-inside cache.
+Store a file inside cache. Use `dest` to specify a custom name.
 
-### .get(src, dest, opts)
+### .get(src, dest)
 
-Get a cached file and save it to a desired location. Use the `name` option to 
-look in a specific folder.
+Get a cached file and save it to a desired location.
 
-### .check(src, opts)
+### .check(src)
 
 Check if a cached file exists.
 
-### .clean(src, opts)
+### .path(src)
 
-Clean cache. If the `name` option is specified it'll remove the folder completely. 
-Else it'll remove the file defined in `src`.
+Get the path to a cached file.
 
-## Options
+### .clean(src)
 
-### name
-
-Type: `String`  
-Default: `undefined`
-
-Name of the folder in cache
+Remove a file from cache.
 
 ## License
 
