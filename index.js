@@ -8,61 +8,55 @@ var rm = require('rimraf');
 var tmp = require('os').tmpdir();
 
 /**
- * Initialize `Cache`
- *
- * @param {String} src
- * @api private
- */
-
-function Cache(src) {
-    this.src = src;
-    this.cache = path.join(tmp, hashfile(src));
-}
-
-/**
  * Cache a file
  *
  * @param {String} dest
  * @api public
  */
 
-Cache.prototype.store = function (dest) {
-    this.cache = dest ? path.join(tmp, hashfile(dest)) : this.cache;
+module.exports.store = function (src, dest) {
+    var cache = dest ? path.join(tmp, hashfile(dest)) : path.join(tmp, hashfile(src));
 
-    if (!fs.existsSync(this.cache)) {
-        if (!fs.existsSync(path.dirname(this.cache))) {
-            mkdir.sync(path.dirname(this.cache));
+    if (!fs.existsSync(cache)) {
+        if (!fs.existsSync(path.dirname(cache))) {
+            mkdir.sync(path.dirname(cache));
         }
 
-        fs.createReadStream(this.src).pipe(fs.createWriteStream(this.cache));
+        fs.createReadStream(src).pipe(fs.createWriteStream(cache));
     }
 };
 
 /**
  * Get a cached file
  *
+ * @param {String} src
  * @param {String} dest
  * @api public
  */
 
-Cache.prototype.get = function (dest) {
-    if (fs.existsSync(this.cache)) {
+module.exports.get = function (src, dest) {
+    var cache = path.join(tmp, hashfile(src));
+
+    if (fs.existsSync(cache)) {
         if (!fs.existsSync(path.dirname(dest))) {
             mkdir.sync(path.dirname(dest));
         }
 
-        fs.createReadStream(this.cache).pipe(fs.createWriteStream(dest));
+        fs.createReadStream(cache).pipe(fs.createWriteStream(dest));
     }
 };
 
 /**
  * Check if a file exists in cache
  *
+ * @param {String} src
  * @api public
  */
 
-Cache.prototype.check = function () {
-    if (fs.existsSync(this.cache)) {
+module.exports.check = function (src) {
+    var cache = path.join(tmp, hashfile(src));
+
+    if (fs.existsSync(cache)) {
         return true;
     }
 
@@ -72,52 +66,29 @@ Cache.prototype.check = function () {
 /**
  * Get the path to a cached file
  *
+ * @param {String} src
  * @api public
  */
 
-Cache.prototype.path = function () {
-    if (fs.existsSync(this.cache)) {
-        return path.resolve(this.cache);
+module.exports.path = function (src) {
+    var cache = path.join(tmp, hashfile(src));
+
+    if (fs.existsSync(cache)) {
+        return path.resolve(cache);
     }
 };
 
 /**
  * Clean cache
  *
+ * @param {String} src
  * @api public
  */
 
-Cache.prototype.clean = function () {
-    if (fs.existsSync(this.cache)) {
-        rm.sync(this.cache);
-    }
-};
-
-/**
- * Module exports
- */
-
-module.exports.store = function (src, dest) {
-    var cache = new Cache(src);
-    return cache.store(dest);
-};
-
-module.exports.get = function (src, dest) {
-    var cache = new Cache(src);
-    return cache.get(dest);
-};
-
-module.exports.check = function (src) {
-    var cache = new Cache(src);
-    return cache.check();
-};
-
-module.exports.path = function (src) {
-    var cache = new Cache(src);
-    return cache.path();
-};
-
 module.exports.clean = function (src) {
-    var cache = new Cache(src);
-    return cache.clean();
+    var cache = path.join(tmp, hashfile(src));
+
+    if (fs.existsSync(cache)) {
+        rm.sync(cache);
+    }
 };
