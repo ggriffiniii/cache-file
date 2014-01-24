@@ -10,6 +10,7 @@ var tmp = require('os').tmpdir();
 /**
  * Cache a file
  *
+ * @param {String} src
  * @param {String} dest
  * @api public
  */
