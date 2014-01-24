@@ -2,7 +2,7 @@
 'use strict';
 
 var assert = require('assert');
-var cache = require('../cache');
+var cache = require('../');
 var eachAsync = require('each-async');
 var fs = require('fs');
 var path = require('path');

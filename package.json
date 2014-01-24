@@ -23,9 +23,9 @@
   "scripts": {
     "test": "mocha --reporter list"
   },
-  "main": "cache.js",
+  "main": "index.js",
   "files": [
-    "cache.js"
+    "index.js"
   ],
   "dependencies": {
     "hash-file": "~0.1.0",
