@@ -1,15 +1,10 @@
 {
   "name": "cache-file",
   "version": "0.1.4",
-  "description": "Store and get files from cache with Node.js",
+  "description": "Store and get files from cache",
   "keywords": [
-    "compress",
-    "image",
-    "img",
-    "jpeg",
-    "jpg",
-    "minify",
-    "png"
+    "cache",
+    "store"
   ],
   "homepage": "https://github.com/kevva/cache-file",
   "bugs": "https://github.com/kevva/cache-file/issues",
