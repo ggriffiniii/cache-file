@@ -26,16 +26,18 @@ describe('Cache.store()', function () {
     it('should cache a file', function (cb) {
         var src = path.join(__dirname, 'fixtures/test.jpg');
 
-        cache.store(src);
-        cb(assert.equal(cache.check(src), true));
+        cache.store(src).on('finish', function() {
+          cb(assert.equal(cache.check(src), true));
+        });
     });
 
     it('should cache a file with a custom name', function (cb) {
         var src = path.join(__dirname, 'fixtures/test.jpg');
         var dest = path.join(__dirname, 'fixtures/test.gif');
 
-        cache.store(src, dest);
-        cb(assert.equal(cache.check(dest), true));
+        cache.store(src, dest).on('finish', function() {
+          cb(assert.equal(cache.check(dest), true));
+        });
     });
 });
 
@@ -44,9 +46,11 @@ describe('Cache.get()', function () {
         var src = path.join(__dirname, 'fixtures/test.jpg');
         var dest = path.join(__dirname, 'tmp/test.jpg');
 
-        cache.store(src);
-        cache.get(src, dest);
-        cb(assert.equal(fs.existsSync(dest), true));
+        cache.store(src).on('finish', function() {
+          cache.get(src, dest).on('finish', function() {
+            cb(assert.equal(fs.existsSync(dest), true));
+          });
+        });
     });
 });
 
@@ -54,8 +58,9 @@ describe('Cache.check()', function () {
     it('should check if a file exists in cache', function (cb) {
         var src = path.join(__dirname, 'fixtures/test.jpg');
 
-        cache.store(src);
-        cb(assert.equal(cache.check(src), true));
+        cache.store(src).on('finish', function() {
+          cb(assert.equal(cache.check(src), true));
+        });
     });
 });
 
@@ -63,8 +68,9 @@ describe('Cache.path()', function () {
     it('should return the path to a cached file', function (cb) {
         var src = path.join(__dirname, 'fixtures/test.jpg');
 
-        cache.store(src);
-        cb(assert.equal(path.basename(cache.path(src)), 'e5a4045cc21680e1162f3ac776a4b3d9acb5550a'));
+        cache.store(src).on('finish', function() {
+          cb(assert.equal(path.basename(cache.path(src)), 'e5a4045cc21680e1162f3ac776a4b3d9acb5550a'));
+        });
     });
 });
 
@@ -72,9 +78,10 @@ describe('Cache.clean()', function () {
     it('should clean a cached file', function (cb) {
         var src = path.join(__dirname, 'fixtures/test.jpg');
 
-        cache.store(src);
-        cache.clean(src);
-        cb(assert.equal(cache.check(src), false));
+        cache.store(src).on('finish', function() {
+          cache.clean(src);
+          cb(assert.equal(cache.check(src), false));
+        });
     });
 });
 
