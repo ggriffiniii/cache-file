@@ -23,7 +23,9 @@ module.exports.store = function (src, dest) {
             mkdir.sync(path.dirname(cache));
         }
 
-        fs.createReadStream(src).pipe(fs.createWriteStream(cache));
+        var writeStream = fs.createWriteStream(cache);
+        fs.createReadStream(src).pipe(writeStream);
+        return writeStream;
     }
 };
 
@@ -43,7 +45,9 @@ module.exports.get = function (src, dest) {
             mkdir.sync(path.dirname(dest));
         }
 
-        fs.createReadStream(cache).pipe(fs.createWriteStream(dest));
+        var writeStream = fs.createWriteStream(dest);
+        fs.createReadStream(cache).pipe(writeStream);
+        return writeStream;
     }
 };
 
